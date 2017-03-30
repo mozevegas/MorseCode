@@ -9,10 +9,15 @@ namespace MorseCode
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
 
             var morseFile = "morse.csv";
+            var translations = "output.csv";
+
+            // ************** Create Dictionary of Index/Value pairs
 
             Dictionary<string, string> morseDiction = new Dictionary<string, string>();
             morseDiction = new Dictionary<string, string>();
@@ -25,45 +30,53 @@ namespace MorseCode
                 }
             }
 
-            // Testing for proof
-            foreach (KeyValuePair<string, string> element in morseDiction)
-            {
-                Console.WriteLine(element.Key + element.Value);
-            }
+            // Question 
 
             Console.WriteLine("Input a word you would like to convert to Morse Code");
             string conVerto = Console.ReadLine();
-            conVerto = conVerto.ToUpper();
-
-
-            //string upConvo = conVerto.ToUpper();
-            Console.WriteLine($"You would like to convert {conVerto.ToUpper()}");
-            Console.WriteLine(conVerto);
-
+            conVerto = conVerto.ToUpper().Replace(" ", "");
+            Console.WriteLine($"You would like to convert {conVerto}");
+            Console.ReadKey();
 
             // convert string to characters and return translation from Morse
-
-
-            Console.WriteLine($"here is F {morseDiction["F"]}");
-
-            if (morseDiction.ContainsKey("A"))
-            {
-                Console.WriteLine(morseDiction.Values);
-            }
-
-
             // convert to Character Array
             char[] conAir = conVerto.ToCharArray();
 
             // conAir is an array--Proof
-            foreach (var here in conAir)
+            foreach (var lettuce in conAir)
             {
-                Console.Write(here);
-                var herepart = here.ToString();
-                Console.WriteLine($" ==  {morseDiction[herepart]}");
+                Console.Write($"   {lettuce}");
+                var herepart = lettuce.ToString();
+                Console.WriteLine($" =  {morseDiction[herepart]}");
+
+                var collector = new List<string>
+                {
+                    morseDiction[herepart]
+                };
+            }
+
+            using (var writer = new StreamWriter(translations))
+            {
+                foreach (var scrubby in conAir)
+                {
+                   writer.WriteLine(scrubby);
+                }
             }
 
 
+            //File.WriteAllLines("text.txt", collector.Select(x => string.Join(",", x)));
+
+            // Write to CSV
+
+            //using (var writer = new StreamWriter(translations))
+            //{
+            //    writer.WriteLine();
+
+            //    foreach (var lettuce in conAir)
+            //    {
+            //        writer.WriteLine();
+            //    }
+            //}
 
 
         }
